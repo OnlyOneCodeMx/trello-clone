@@ -10,13 +10,7 @@ import { InputType, ReturnType } from './types';
 import { CreateBoard } from './schema';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId, orgId } = await auth();
-
-  if (!userId || !orgId) {
-    return {
-      error: 'Unauthorized',
-    };
-  }
+  const { orgId } = await auth();
 
   const { title, image } = data;
 
@@ -41,7 +35,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     board = await db.board.create({
       data: {
         title,
-        orgId,
+        orgId: orgId!,
         imageId,
         imageThumbUrl,
         imageFullUrl,
