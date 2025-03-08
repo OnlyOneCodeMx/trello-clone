@@ -7,13 +7,20 @@ import { ACTION, ENTITY_TYPE } from '@prisma/client';
 import { db } from '@/lib/db';
 import { createAuditLog } from '@/lib/create-audit-log';
 import { createSafeAction } from '@/lib/create-safe-action';
+import { decreaseAvailableCount } from '@/lib/org-limite';
 
 import { DeleteBoard } from './schema';
 import { InputType, ReturnType } from './types';
 import { redirect } from 'next/navigation';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { orgId } = await auth();
+  const { userId, orgId } = await auth();
+
+  if (!userId || !orgId) {
+    return {
+      error: 'Unauthorized',
+    };
+  }
 
   const { id } = data;
 
@@ -23,9 +30,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     board = await db.board.delete({
       where: {
         id,
-        orgId: orgId!,
+        orgId,
       },
     });
+
+    await decreaseAvailableCount();
 
     await createAuditLog({
       entityId: board.id,
