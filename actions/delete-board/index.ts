@@ -12,6 +12,7 @@ import { decreaseAvailableCount } from '@/lib/org-limite';
 import { DeleteBoard } from './schema';
 import { InputType, ReturnType } from './types';
 import { redirect } from 'next/navigation';
+import { checkSubscription } from '@/lib/suscription';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = await auth();
@@ -21,6 +22,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: 'Unauthorized',
     };
   }
+
+  const isPro = await checkSubscription();
 
   const { id } = data;
 
@@ -34,7 +37,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    await decreaseAvailableCount();
+    if (!isPro) {
+      await decreaseAvailableCount();
+    }
 
     await createAuditLog({
       entityId: board.id,

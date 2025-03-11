@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { FormPopover } from '@/components/form/form-popover';
 import { MAX_FREE_BOARDS } from '@/constants/boards';
 import { getAvailableCount } from '@/lib/org-limite';
+import { checkSubscription } from '@/lib/suscription';
 
 export const BoardList = async () => {
   const { orgId } = await auth();
@@ -28,7 +29,7 @@ export const BoardList = async () => {
 
   const availableCount = await getAvailableCount();
   const remainingCount = MAX_FREE_BOARDS - availableCount;
-
+  const isPro = await checkSubscription();
   return (
     <div className="space-y-4">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
@@ -51,7 +52,9 @@ export const BoardList = async () => {
             role="button"
             className="aspect-video relative h-full w-full bg-muted flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition">
             <p className="text-sm">Create new board</p>
-            <span className="text-sm">{remainingCount} remaining</span>
+            <span className="text-sm">
+              {isPro ? 'Unlimited' : `${remainingCount} remaining`}
+            </span>
             <Hint
               sideOffset={40}
               description={`Free Workspaces can have up to ${MAX_FREE_BOARDS} boards. For unlimited boards, upgrade this workspace.`}>
