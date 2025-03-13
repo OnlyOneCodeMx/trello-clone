@@ -4,10 +4,10 @@ import { db } from '@/lib/db';
 import { ListContainer } from './_components/list-container';
 
 interface BoardIdPageProps {
-  params: { boardId: string };
+  params: Promise<{ boardId: string }>;
 }
 
-export const BoardIdPage = async ({ params }: BoardIdPageProps) => {
+const BoardIdPage = async ({ params }: BoardIdPageProps) => {
   const { boardId } = await params;
   const { orgId } = await auth();
 

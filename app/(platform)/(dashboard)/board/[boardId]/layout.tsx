@@ -7,7 +7,7 @@ import { BoardNavbar } from './_components/board-navbar';
 export async function generateMetadata({
   params,
 }: {
-  params: { boardId: string };
+  params: Promise<{ boardId: string }>;
 }) {
   const { boardId } = await params;
   const { orgId } = await auth();
@@ -35,7 +35,7 @@ const BoardIdLayout = async ({
   params,
 }: {
   children: React.ReactNode;
-  params: { boardId: string };
+  params: Promise<{ boardId: string }>;
 }) => {
   const { boardId } = await params;
   const { orgId } = await auth();

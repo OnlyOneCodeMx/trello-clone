@@ -17,7 +17,10 @@ import { NextResponse } from 'next/server';
 
 import { db } from '@/lib/db';
 
-export async function GET({ params }: { params: { cardId: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ cardId: string }> }
+) {
   const { cardId } = await params;
   try {
     // Authenticate user and get organization ID

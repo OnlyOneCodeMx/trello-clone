@@ -4,7 +4,10 @@ import { ENTITY_TYPE } from '@prisma/client';
 
 import { db } from '@/lib/db';
 
-export async function GET({ params }: { params: { cardId: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ cardId: string }> }
+) {
   try {
     const { userId, orgId } = await auth();
     const { cardId } = await params;
