@@ -1,3 +1,19 @@
+/**
+ * Sidebar Navigation Component
+ *
+ * This component manages the main navigation sidebar with the following features:
+ * - Organization list management
+ * - Persistent expansion state using local storage
+ * - Dynamic workspace switching
+ * - Loading states and skeletons
+ * - Add new workspace functionality
+ *
+ * The sidebar maintains its state between sessions and provides
+ * quick access to all available workspaces and their features.
+ *
+ * @param storageKey - Key used for persisting expansion state in local storage
+ */
+
 'use client';
 
 import Link from 'next/link';
@@ -6,27 +22,33 @@ import { useLocalStorage } from 'usehooks-ts';
 import { useOrganization, useOrganizationList } from '@clerk/nextjs';
 
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion } from '@/components/ui/accordion';
 
 import { NavItem, Organization } from './nav-item';
 
+// Props interface for the Sidebar component
 interface SidebarProps {
   storageKey?: string;
 }
 
 export const Sidebar = ({ storageKey = 'p-sidebar-state' }: SidebarProps) => {
-  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
+  // Store expanded state in local storage for persistence
+  const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(
     storageKey,
     {}
   );
+
+  // Get current active organization and loading state
   const { organization: activeOrganization, isLoaded: isLoadedOrg } =
     useOrganization();
+
+  // Get list of all organizations the user belongs to
   const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
     userMemberships: { infinite: true },
   });
 
+  // Convert expanded state object to array of IDs for Accordion
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
       if (expanded[key]) {
@@ -38,6 +60,7 @@ export const Sidebar = ({ storageKey = 'p-sidebar-state' }: SidebarProps) => {
     []
   );
 
+  // Toggle expansion state for an organization
   const onExpand = (id: string) => {
     setExpanded((curr) => ({
       ...curr,
@@ -45,6 +68,7 @@ export const Sidebar = ({ storageKey = 'p-sidebar-state' }: SidebarProps) => {
     }));
   };
 
+  // Show skeleton loading state while data is being fetched
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
@@ -60,8 +84,10 @@ export const Sidebar = ({ storageKey = 'p-sidebar-state' }: SidebarProps) => {
       </>
     );
   }
+
   return (
     <>
+      {/* Header with title and add organization button */}
       <div className="font-medium text- flex items-center mb-1">
         <span className="pl-4">Workspaces</span>
         <Button
@@ -75,6 +101,8 @@ export const Sidebar = ({ storageKey = 'p-sidebar-state' }: SidebarProps) => {
           </Link>
         </Button>
       </div>
+
+      {/* Organization list with accordion behavior */}
       <Accordion
         type="multiple"
         defaultValue={defaultAccordionValue}

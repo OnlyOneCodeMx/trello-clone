@@ -1,9 +1,25 @@
+/**
+ * Organization Subscription Manager
+ *
+ * Handles subscription status validation for organizations:
+ * - Validates current subscription in database
+ * - Checks subscription expiration date
+ * - Includes grace period of one day after expiration
+ * - Returns boolean indicating subscription validity
+ */
+
 import { auth } from '@clerk/nextjs/server';
 
 import { db } from '@/lib/db';
 
+// Milliseconds in a day for grace period calculations
 const DAY_IN_MS = 86_400_000;
 
+/**
+ * Validates the current organization's subscription status
+ *
+ * @returns {Promise<boolean>} True if subscription is valid and not expired (including grace period)
+ */
 export const checkSubscription = async () => {
   const { orgId } = await auth();
 
@@ -27,9 +43,11 @@ export const checkSubscription = async () => {
     return false;
   }
 
+  // Check if subscription is valid and not expired (including grace period)
   const isValid =
     orgSubscription.stripePriceId &&
-    orgSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
+    orgSubscription.stripeCurrentPeriodEnd &&
+    orgSubscription.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now();
 
   return !!isValid;
 };

@@ -1,3 +1,19 @@
+/**
+ * Navigation Item Component
+ *
+ * This component handles the rendering of organization navigation items with the following features:
+ * - Expandable/collapsible accordion interface
+ * - Organization logo and name display
+ * - Dynamic route management
+ * - Active state indication
+ * - Loading state skeleton
+ *
+ * @param isExpanded - Controls the expanded state of the navigation item
+ * @param isActive - Indicates if the item is currently active
+ * @param organization - Organization data object
+ * @param onExpand - Callback function for expansion state changes
+ */
+
 'use-client';
 
 import { useRouter, usePathname } from 'next/navigation';
@@ -14,6 +30,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 
+// Organization type definition for type safety
 export type Organization = {
   id: string;
   slug: string;
@@ -21,10 +38,11 @@ export type Organization = {
   name: string;
 };
 
+// Props interface for the NavItem component
 interface NavItemProps {
   isExpanded: boolean;
   isActive: boolean;
-  organization: any;
+  organization: Organization;
   onExpand: (id: string) => void;
 }
 
@@ -37,6 +55,7 @@ export const NavItem = ({
   const router = useRouter();
   const pathName = usePathname();
 
+  // Define navigation routes for the organization
   const routes = [
     {
       label: 'Boards',
@@ -60,12 +79,14 @@ export const NavItem = ({
     },
   ];
 
+  // Handle navigation to the selected route
   const onClick = (href: string) => {
     router.push(href);
   };
 
   return (
     <AccordionItem value={organization.id} className="border-none">
+      {/* Organization header that toggles expansion */}
       <AccordionTrigger
         onClick={() => onExpand(organization.id)}
         className={cn(
@@ -84,6 +105,7 @@ export const NavItem = ({
           <span className="font-medium text-sm">{organization.name}</span>
         </div>
       </AccordionTrigger>
+      {/* Expandable content with navigation options */}
       <AccordionContent className="pt-1 text-neutral-700">
         {routes.map((route) => (
           <Button
@@ -104,6 +126,7 @@ export const NavItem = ({
   );
 };
 
+// Skeleton component for loading state
 NavItem.Skeleton = function SkeletonNavItem() {
   return (
     <>

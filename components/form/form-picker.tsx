@@ -1,3 +1,17 @@
+/**
+ * Form Image Picker Component
+ *
+ * This component provides an image selection interface with the following features:
+ * - Unsplash API integration for image options
+ * - Grid-based image selection UI
+ * - Loading states and indicators
+ * - Fallback to default images
+ * - Attribution links for image creators
+ *
+ * @param id - Form field identifier
+ * @param errors - Validation errors for the field
+ */
+
 'use client';
 
 import Image from 'next/image';
@@ -14,17 +28,31 @@ import { FormErrors } from './form-errors';
 
 interface FormPickerProps {
   id: string;
-  errors?: Record<string, string[] | undefined>;
+  errors?: Record<string, string[]> | undefined;
+}
+
+interface UnsplashImage {
+  id: string;
+  urls: {
+    thumb: string;
+    full: string;
+  };
+  links: {
+    html: string;
+  };
+  user: {
+    name: string;
+  };
 }
 
 export const FormPicker = ({ id, errors }: FormPickerProps) => {
   const { pending } = useFormStatus();
 
-  const [images, setImages] =
-    useState<Array<Record<string, any>>>(defaultImages);
+  const [images, setImages] = useState<UnsplashImage[]>(defaultImages);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImageId, setSelectedImageId] = useState(null);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
+  // Fetch images from Unsplash on component mount
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -33,13 +61,14 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           count: 9,
         });
         if (result && result.response) {
-          const newImages = result.response as Array<Record<string, any>>;
+          const newImages = result.response as UnsplashImage[];
           setImages(newImages);
         } else {
           console.error('Failed to get images from Unsplash');
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
+        // Fall back to default images if API call fails
         setImages(defaultImages);
       } finally {
         setIsLoading(false);
@@ -71,6 +100,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
               if (pending) return;
               setSelectedImageId(image.id);
             }}>
+            {/* Hidden radio input for form submission */}
             <input
               type="radio"
               name={id}

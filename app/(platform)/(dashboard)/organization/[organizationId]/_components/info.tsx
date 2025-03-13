@@ -1,3 +1,19 @@
+/**
+ * Organization Info Component
+ *
+ * This component displays organization information with the following features:
+ * - Organization logo display
+ * - Organization name rendering
+ * - Subscription status indication (Pro/Free)
+ * - Loading state management
+ * - Skeleton loading UI
+ *
+ * The component provides visual feedback about the organization's
+ * current status and subscription level.
+ *
+ * @param isPro - Boolean indicating if the organization has a pro subscription
+ */
+
 'use client';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -21,7 +37,7 @@ export const Info = ({ isPro }: InfoProps) => {
       <div className="w-[60px] h-[60px] relative">
         <Image
           fill
-          src={organization?.imageUrl!}
+          src={organization?.imageUrl || ''}
           alt="Organization"
           className="rounded-md object-cover"
         />

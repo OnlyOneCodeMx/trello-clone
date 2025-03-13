@@ -1,8 +1,21 @@
+/**
+ * Database Client Configuration
+ *
+ * This module configures and exports the Prisma client instance:
+ * - Handles hot reloading in development
+ * - Ensures single instance in production
+ * - Provides type-safe database access
+ *
+ * The client is cached in development to prevent multiple instances
+ * during hot reloading, while in production a single instance is used.
+ */
+
 // Import PrismaClient for database interaction.
 import { PrismaClient } from '@prisma/client';
 
 // Declare a global 'prisma' to persist the instance during hot reloads.
 declare global {
+  // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 
