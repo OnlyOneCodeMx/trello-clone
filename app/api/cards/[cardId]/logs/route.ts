@@ -4,14 +4,11 @@ import { ENTITY_TYPE } from '@prisma/client';
 
 import { db } from '@/lib/db';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { cardId: string } }
-) {
+export async function GET({ params }: { params: { cardId: string } }) {
   try {
     const { userId, orgId } = await auth();
     const { cardId } = await params;
-    
+
     if (!userId || !orgId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
@@ -30,7 +27,7 @@ export async function GET(
 
     return NextResponse.json(auditLogs);
   } catch (error) {
-    console.error("[CARD_LOGS_GET]", error);
+    console.error('[CARD_LOGS_GET]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

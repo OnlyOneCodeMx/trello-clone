@@ -28,4 +28,3 @@ export const ActivityItem = ({ data }: ActivityItemProps) => {
     </li>
   );
 };
-// VIDEO 25:15
