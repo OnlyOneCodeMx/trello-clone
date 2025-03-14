@@ -30,7 +30,7 @@ const MarketingPage = () => {
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6">
           Planify help team move
         </h1>
-        <div className="text-3xl md:text-6xl bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 p-2 rounded-md pb-4 w-fit">
+        <div className="text-3xl md:text-6xl bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 p-2 rounded-md w-fit">
           work forward
         </div>
       </div>
