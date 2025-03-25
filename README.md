@@ -1,6 +1,6 @@
 # 🗂️ Trello Clone - Project Management Board
 
-[![Next.js](https://img.shields.io/badge/Next.js-13.5.4-000000?logo=next.js&style=flat)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.2.2-000000?logo=next.js&style=flat)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&style=flat)](https://react.dev/)
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase&style=flat)](https://supabase.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-6.2.1-2D3748?logo=prisma&style=flat)](https://prisma.io/)
@@ -76,7 +76,7 @@ cd trello-clone
 npm install
 ```
 
-3. **Set up enviroment variables**
+3. _Set up enviroment variables_
 
 ```bash
 cp .env .env.local
