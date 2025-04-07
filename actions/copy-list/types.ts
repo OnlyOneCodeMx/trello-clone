@@ -1,3 +1,9 @@
+/**
+ * Copy List Types
+ *
+ * This file defines the input and return types for the Copy List action,
+ * using Zod for schema inference and a custom ActionState utility for result typing.
+ */
 import { z } from 'zod';
 import { List } from '@prisma/client';
 

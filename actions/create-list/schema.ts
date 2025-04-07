@@ -1,3 +1,9 @@
+/**
+ * Create List Schema
+ *
+ * Validation schema for the create list action.
+ * Defines and validates the required fields for list creation.
+ */
 import { z } from 'zod';
 
 export const CreateList = z.object({

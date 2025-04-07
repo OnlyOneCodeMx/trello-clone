@@ -1,3 +1,8 @@
+/**
+ * Schema for Update Card Order Action
+ *
+ * Defines the input schema required to update the order of cards.
+ */
 import { z } from 'zod';
 
 export const UpdateCardOrder = z.object({

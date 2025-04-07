@@ -1,3 +1,10 @@
+/**
+ * Copy Card Types
+ *
+ * Defines the input and return types for the Copy Card action.
+ * Uses Zod schema inference for input validation and ActionState
+ * to standardize the result structure.
+ */
 import { z } from 'zod';
 import { Card } from '@prisma/client';
 

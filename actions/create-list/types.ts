@@ -1,3 +1,11 @@
+/**
+ * Types for Create List Action
+ *
+ * Defines the types used in the create list action, including the input
+ * and return types. The `InputType` is derived from the `CreateList` schema,
+ * and the `ReturnType` is an `ActionState` that wraps the `List` entity.
+ */
+
 import { z } from 'zod';
 import { List } from '@prisma/client';
 

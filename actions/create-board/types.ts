@@ -1,3 +1,9 @@
+/**
+ * Create Board Types
+ *
+ * Type definitions for the create board action.
+ * Provides proper typing for input parameters and return values.
+ */
 import { z } from 'zod';
 import { Board } from '@prisma/client';
 

@@ -1,3 +1,8 @@
+/**
+ * Schema for Update Board Action
+ *
+ * Defines the input schema required to update a board.
+ */
 import { z } from 'zod';
 
 export const UpdateBoard = z.object({

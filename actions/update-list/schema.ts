@@ -1,3 +1,8 @@
+/**
+ * Schema for Update List Action
+ *
+ * Defines the input schema required to update a list.
+ */
 import { z } from 'zod';
 
 export const UpdateList = z.object({

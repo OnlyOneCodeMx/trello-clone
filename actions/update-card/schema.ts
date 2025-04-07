@@ -1,3 +1,8 @@
+/**
+ * Schema for Update Card Action
+ *
+ * Defines the input schema required to update a card.
+ */
 import { z } from 'zod';
 
 export const UpdateCard = z.object({

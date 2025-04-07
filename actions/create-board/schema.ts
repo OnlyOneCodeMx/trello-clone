@@ -1,3 +1,9 @@
+/**
+ * Create Board Schema
+ *
+ * Validation schema for the create board action.
+ * Defines and validates the required fields for board creation.
+ */
 import { z } from 'zod';
 
 export const CreateBoard = z.object({

@@ -1,3 +1,11 @@
+/**
+ * Types for Delete Board Action
+ *
+ * Defines the types used in the delete board action, including the input
+ * and return types. The `InputType` is derived from the `DeleteBoard` schema,
+ * and the `ReturnType` is an `ActionState` that wraps the `Board` entity.
+ */
+
 import { z } from 'zod';
 import { Board } from '@prisma/client';
 

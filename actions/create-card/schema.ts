@@ -1,3 +1,9 @@
+/**
+ * Create Card Schema
+ *
+ * Validation schema for the create card action.
+ * Defines and validates the required fields for card creation.
+ */
 import { z } from 'zod';
 
 export const CreateCard = z.object({

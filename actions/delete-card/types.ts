@@ -1,3 +1,11 @@
+/**
+ * Types for Delete Card Action
+ *
+ * Defines the types used in the delete card action, including the input
+ * and return types. The `InputType` is derived from the `DeleteCard` schema,
+ * and the `ReturnType` is an `ActionState` that wraps the `Card` entity.
+ */
+
 import { z } from 'zod';
 import { Card } from '@prisma/client';
 
